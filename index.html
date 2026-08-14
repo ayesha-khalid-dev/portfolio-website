@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ayesha Khalid | Frontend Developer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f7f4ef;
+      --white: #ffffff;
+      --ink: #1a1612;
+      --muted: #7a7168;
+      --accent: #5b3cf5;
+      --accent-soft: #ede9ff;
+      --teal: #0ea898;
+      --teal-soft: #e0f7f4;
+      --border: #e6e1d8;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--ink); font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
+
+    /* SCROLL ANIMATIONS */
+    .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-left { opacity: 0; transform: translateX(-40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal-left.visible { opacity: 1; transform: translateX(0); }
+    .reveal-right { opacity: 0; transform: translateX(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 5rem;
+      background: rgba(247,244,239,0.92); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-family: 'Instrument Serif', serif; font-size: 1.5rem; color: var(--ink); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.88rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-cta { background: var(--accent) !important; color: #fff !important; padding: 0.5rem 1.4rem; border-radius: 100px; font-weight: 600 !important; transition: transform 0.2s !important; }
+    .nav-cta:hover { transform: translateY(-2px) !important; }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: center; gap: 2rem;
+      padding: 8rem 5rem 5rem;
+      position: relative; overflow: hidden;
+    }
+    .hero-bg { position: absolute; border-radius: 50%; pointer-events: none; }
+    .hero-bg.c1 { width: 600px; height: 600px; top: -150px; right: -100px; background: radial-gradient(circle, rgba(91,60,245,0.1), transparent 70%); }
+    .hero-bg.c2 { width: 400px; height: 400px; bottom: -100px; left: -100px; background: radial-gradient(circle, rgba(14,168,152,0.07), transparent 70%); }
+
+    .hero-left { position: relative; z-index: 1; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      background: var(--accent-soft); color: var(--accent);
+      padding: 0.4rem 1rem; border-radius: 100px;
+      font-size: 0.78rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em;
+      margin-bottom: 2rem;
+    }
+    .eyebrow-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: blink 2s infinite; }
+    @keyframes blink { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(1.5)} }
+
+    .hero h1 { font-family: 'Instrument Serif', serif; font-size: clamp(2.8rem, 5vw, 4.5rem); line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 1.5rem; }
+    .hero h1 .line2 { font-style: italic; color: var(--accent); display: block; }
+    .hero h1 .line3 { color: var(--teal); display: block; }
+    .hero-bio { font-size: 1rem; color: var(--muted); max-width: 460px; line-height: 1.8; margin-bottom: 2.5rem; }
+    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+    .btn-primary { background: var(--accent); color: #fff; padding: 0.9rem 2rem; border-radius: 100px; font-weight: 600; font-size: 0.92rem; text-decoration: none; box-shadow: 0 4px 20px rgba(91,60,245,0.3); transition: transform 0.2s, box-shadow 0.2s; }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(91,60,245,0.4); }
+    .btn-ghost { color: var(--ink); text-decoration: none; font-weight: 500; font-size: 0.92rem; border-bottom: 2px solid var(--ink); padding-bottom: 2px; transition: color 0.2s, border-color 0.2s; }
+    .btn-ghost:hover { color: var(--accent); border-color: var(--accent); }
+    .hero-badges { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-top: 3rem; }
+    .badge { display: flex; align-items: center; gap: 0.4rem; background: var(--white); border: 1px solid var(--border); border-radius: 100px; padding: 0.4rem 0.9rem; font-size: 0.8rem; font-weight: 500; color: var(--muted); box-shadow: 0 2px 8px rgba(0,0,0,0.05); transition: transform 0.2s; }
+    .badge:hover { transform: translateY(-2px); }
+
+    /* HERO VISUAL - pure CSS, no external library needed */
+    .hero-right { position: relative; z-index: 1; display: flex; align-items: center; justify-content: center; height: 480px; }
+    .orb-stage {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .orb-ring {
+      position: absolute;
+      width: 340px; height: 340px;
+      border-radius: 50%;
+      border: 2px solid rgba(91,60,245,0.25);
+      animation: spin 18s linear infinite;
+    }
+    .orb-ring.ring2 {
+      width: 260px; height: 260px;
+      border: 2px dashed rgba(14,168,152,0.3);
+      animation: spin-rev 24s linear infinite;
+    }
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    @keyframes spin-rev { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
+
+    .orb-core {
+      width: 190px; height: 190px;
+      border-radius: 42% 58% 65% 35% / 45% 40% 60% 55%;
+      background: linear-gradient(135deg, var(--accent), #9c6dff 55%, var(--teal));
+      box-shadow: 0 20px 60px rgba(91,60,245,0.35), inset 0 0 40px rgba(255,255,255,0.15);
+      animation: morph 8s ease-in-out infinite, floaty 6s ease-in-out infinite;
+    }
+    @keyframes morph {
+      0%, 100% { border-radius: 42% 58% 65% 35% / 45% 40% 60% 55%; }
+      33% { border-radius: 60% 40% 35% 65% / 55% 65% 35% 45%; }
+      66% { border-radius: 35% 65% 55% 45% / 40% 35% 65% 60%; }
+    }
+    @keyframes floaty {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-18px); }
+    }
+
+    .float-chip {
+      position: absolute;
+      display: flex; align-items: center; gap: 0.4rem;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 0.5rem 1rem;
+      font-size: 0.8rem; font-weight: 600;
+      color: var(--ink);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      animation: bob 5s ease-in-out infinite;
+    }
+    .float-chip.chip1 { top: 6%; left: 2%; animation-delay: 0s; }
+    .float-chip.chip2 { bottom: 12%; left: -4%; animation-delay: 1.2s; }
+    .float-chip.chip3 { top: 14%; right: -2%; animation-delay: 0.6s; }
+    .float-chip.chip4 { bottom: 4%; right: 4%; animation-delay: 1.8s; }
+    @keyframes bob {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-14px); }
+    }
+
+    .orb-particle {
+      position: absolute;
+      border-radius: 50%;
+      background: var(--teal);
+      opacity: 0.6;
+      animation: drift 7s ease-in-out infinite;
+    }
+    .p1 { width: 10px; height: 10px; top: 20%; left: 12%; background: var(--accent); animation-delay: 0s; }
+    .p2 { width: 7px; height: 7px; top: 70%; left: 20%; animation-delay: 1s; }
+    .p3 { width: 12px; height: 12px; top: 15%; right: 15%; background: #9c6dff; animation-delay: 2s; }
+    .p4 { width: 8px; height: 8px; bottom: 18%; right: 10%; animation-delay: 3s; }
+    @keyframes drift {
+      0%, 100% { transform: translate(0,0); opacity: 0.5; }
+      50% { transform: translate(10px,-16px); opacity: 1; }
+    }
+
+    /* MARQUEE */
+    .marquee-wrap { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--white); overflow: hidden; padding: 1rem 0; }
+    .marquee-track { display: flex; gap: 3rem; animation: marquee 20s linear infinite; width: max-content; }
+    @keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+    .marquee-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; font-weight: 600; color: var(--muted); white-space: nowrap; text-transform: uppercase; letter-spacing: 0.06em; }
+    .marquee-item span { color: var(--accent); }
+
+    /* SECTIONS */
+    section { padding: 5.5rem 5rem; }
+    .section-eyebrow { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.72rem; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 1rem; }
+    .section-eyebrow::before { content:''; width:24px; height:2px; background:var(--accent); border-radius:2px; }
+    .section-title { font-family: 'Instrument Serif', serif; font-size: clamp(2rem, 4vw, 3rem); letter-spacing: -0.02em; color: var(--ink); margin-bottom: 3rem; line-height: 1.15; }
+
+    /* ABOUT */
+    #about { background: var(--white); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    .about-text p { color: var(--muted); line-height: 1.9; margin-bottom: 1rem; font-size: 0.97rem; }
+    .about-highlight { margin-top: 1.5rem; padding: 1.2rem 1.5rem; background: var(--accent-soft); border-left: 3px solid var(--accent); border-radius: 0 10px 10px 0; font-size: 0.92rem; font-weight: 600; color: var(--accent); }
+    .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .stat-box { background: var(--bg); border: 1px solid var(--border); border-radius: 16px; padding: 1.8rem; text-align: center; transition: transform 0.2s; }
+    .stat-box:hover { transform: translateY(-4px); }
+    .stat-num { font-family: 'Instrument Serif', serif; font-size: 3rem; color: var(--accent); line-height: 1; margin-bottom: 0.4rem; }
+    .stat-label { font-size: 0.8rem; color: var(--muted); font-weight: 500; }
+
+    /* SKILLS */
+    #skills { background: var(--bg); }
+    .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .skill-card { background: var(--white); border: 1px solid var(--border); border-radius: 18px; padding: 2rem; transition: transform 0.3s, box-shadow 0.3s; position: relative; overflow: hidden; }
+    .skill-card::after { content:''; position:absolute; top:0; left:0; right:0; height:3px; background: linear-gradient(90deg, var(--accent), var(--teal)); opacity:0; transition:opacity 0.3s; }
+    .skill-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0,0,0,0.1); }
+    .skill-card:hover::after { opacity: 1; }
+    .skill-icon { font-size: 2rem; margin-bottom: 1rem; }
+    .skill-card h3 { font-family: 'Instrument Serif', serif; font-size: 1.2rem; color: var(--ink); margin-bottom: 0.8rem; }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .skill-tag { font-size: 0.72rem; font-weight: 600; padding: 0.25rem 0.7rem; border-radius: 100px; background: var(--bg); color: var(--muted); border: 1px solid var(--border); }
+
+    /* PROJECTS */
+    #projects { background: var(--white); }
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px,1fr)); gap: 1.5rem; }
+    .project-card { background: var(--bg); border: 1px solid var(--border); border-radius: 20px; padding: 2rem; transition: transform 0.3s, box-shadow 0.3s; display: flex; flex-direction: column; }
+    .project-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
+    .project-card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.2rem; }
+    .project-emoji { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0; }
+    .em-purple { background: var(--accent-soft); }
+    .em-teal { background: var(--teal-soft); }
+    .em-coral { background: #fff2ef; }
+    .em-yellow { background: #fff9e6; }
+    .project-tags-top { display: flex; gap: 0.4rem; flex-wrap: wrap; justify-content: flex-end; }
+    .ptag { font-size: 0.68rem; font-weight: 600; padding: 0.2rem 0.65rem; border-radius: 100px; background: var(--white); border: 1px solid var(--border); color: var(--muted); }
+    .project-card h3 { font-family: 'Instrument Serif', serif; font-size: 1.2rem; color: var(--ink); margin-bottom: 0.6rem; }
+    .project-card p { font-size: 0.87rem; color: var(--muted); line-height: 1.7; flex: 1; }
+    .project-links { display: flex; gap: 1rem; margin-top: 1.5rem; }
+    .project-link { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.83rem; font-weight: 700; color: var(--accent); text-decoration: none; transition: gap 0.2s; }
+    .project-link:hover { gap: 0.8rem; }
+    .project-link.live { color: var(--teal); }
+
+    /* AI SECTION */
+    #ai { background: linear-gradient(135deg, #1a1612 0%, #2a1f4a 50%, #0f2a28 100%); }
+    #ai .section-eyebrow { color: #a78bfa; }
+    #ai .section-eyebrow::before { background: #a78bfa; }
+    #ai .section-title { color: #fff; }
+    .ai-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .ai-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 20px; padding: 2rem; transition: transform 0.3s, background 0.3s; }
+    .ai-card:hover { transform: translateY(-4px); background: rgba(255,255,255,0.1); }
+    .ai-card-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+    .ai-card h3 { font-family: 'Instrument Serif', serif; font-size: 1.3rem; color: #fff; margin-bottom: 0.8rem; }
+    .ai-card p { font-size: 0.88rem; color: rgba(255,255,255,0.65); line-height: 1.7; }
+    .ai-tools { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+    .ai-tool { font-size: 0.72rem; font-weight: 600; padding: 0.25rem 0.7rem; border-radius: 100px; background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.75); border: 1px solid rgba(255,255,255,0.15); }
+
+    /* CONTACT */
+    #contact { background: var(--bg); }
+    .contact-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    .contact-info { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-row { display: flex; align-items: center; gap: 1.2rem; padding: 1.1rem 1.4rem; background: var(--white); border-radius: 14px; border: 1px solid var(--border); transition: border-color 0.2s, transform 0.2s; }
+    .contact-row:hover { border-color: var(--accent); transform: translateX(6px); }
+    .contact-icon-box { width: 42px; height: 42px; border-radius: 12px; background: var(--accent-soft); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+    .contact-label { font-size: 0.72rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+    .contact-val { font-size: 0.9rem; color: var(--ink); font-weight: 500; }
+    .contact-card { background: linear-gradient(135deg, var(--accent), #9c6dff 60%, var(--teal)); border-radius: 24px; padding: 3rem; color: #fff; position: relative; overflow: hidden; }
+    .contact-card::before { content:'✦'; position:absolute; right:1.5rem; bottom:-2rem; font-size:10rem; opacity:0.07; line-height:1; }
+    .contact-card h3 { font-family: 'Instrument Serif', serif; font-size: 2rem; margin-bottom: 1rem; line-height: 1.2; }
+    .contact-card p { opacity: 0.85; line-height: 1.7; margin-bottom: 2rem; font-size: 0.95rem; }
+    .available-badge { display: inline-flex; align-items: center; gap: 0.6rem; background: rgba(255,255,255,0.2); border-radius: 100px; padding: 0.5rem 1.2rem; font-size: 0.82rem; font-weight: 600; }
+    .available-dot { width: 7px; height: 7px; border-radius: 50%; background: #a8ff78; animation: blink 2s infinite; }
+
+    /* FOOTER */
+    footer { background: var(--ink); color: rgba(255,255,255,0.5); padding: 2rem 5rem; display: flex; align-items: center; justify-content: space-between; font-size: 0.82rem; }
+    footer .logo { font-family: 'Instrument Serif', serif; font-size: 1.2rem; color: #fff; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; padding: 7rem 1.5rem 3rem; }
+      .hero-right { display: none; }
+      section { padding: 4rem 1.5rem; }
+      .about-grid, .contact-wrapper, .ai-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .skills-grid, .projects-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Ayesha Khalid</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#ai">AI Work</a></li>
+    <li><a href="#contact" class="nav-cta">Hire Me</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg c1"></div>
+  <div class="hero-bg c2"></div>
+  <div class="hero-left">
+    <div class="hero-eyebrow"><span class="eyebrow-dot"></span> Open to Internship — 2026</div>
+    <h1>
+      Ayesha Khalid
+      <span class="line2">Frontend Dev</span>
+      <span class="line3">& AI Builder.</span>
+    </h1>
+    <p class="hero-bio">I build responsive, beautiful web interfaces with React & Tailwind CSS — and I automate intelligent workflows with n8n and AI. Based in Sahiwal, Pakistan.</p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn-primary">View My Work →</a>
+      <a href="#contact" class="btn-ghost">Get in Touch</a>
+    </div>
+    <div class="hero-badges">
+      <div class="badge">⚛️ React.js</div>
+      <div class="badge">🎨 Tailwind CSS</div>
+      <div class="badge">🤖 n8n Automation</div>
+      <div class="badge">🧠 RAG Pipeline</div>
+      <div class="badge">💻 JavaScript</div>
+      <div class="badge">🎯 Figma</div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="orb-stage">
+      <div class="orb-ring"></div>
+      <div class="orb-ring ring2"></div>
+      <div class="orb-core"></div>
+      <div class="orb-particle p1"></div>
+      <div class="orb-particle p2"></div>
+      <div class="orb-particle p3"></div>
+      <div class="orb-particle p4"></div>
+      <div class="float-chip chip1">⚛️ React</div>
+      <div class="float-chip chip2">🎨 Tailwind</div>
+      <div class="float-chip chip3">🤖 n8n</div>
+      <div class="float-chip chip4">🧠 AI</div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <div class="marquee-item"><span>✦</span> HTML5 & CSS3</div>
+    <div class="marquee-item"><span>✦</span> React.js</div>
+    <div class="marquee-item"><span>✦</span> Tailwind CSS</div>
+    <div class="marquee-item"><span>✦</span> JavaScript ES6+</div>
+    <div class="marquee-item"><span>✦</span> n8n Automation</div>
+    <div class="marquee-item"><span>✦</span> RAG Pipeline</div>
+    <div class="marquee-item"><span>✦</span> AI Chatbot</div>
+    <div class="marquee-item"><span>✦</span> REST APIs</div>
+    <div class="marquee-item"><span>✦</span> React Router</div>
+    <div class="marquee-item"><span>✦</span> Figma to Code</div>
+    <div class="marquee-item"><span>✦</span> Responsive Design</div>
+    <div class="marquee-item"><span>✦</span> HTML5 & CSS3</div>
+    <div class="marquee-item"><span>✦</span> React.js</div>
+    <div class="marquee-item"><span>✦</span> Tailwind CSS</div>
+    <div class="marquee-item"><span>✦</span> JavaScript ES6+</div>
+    <div class="marquee-item"><span>✦</span> n8n Automation</div>
+    <div class="marquee-item"><span>✦</span> RAG Pipeline</div>
+    <div class="marquee-item"><span>✦</span> AI Chatbot</div>
+    <div class="marquee-item"><span>✦</span> REST APIs</div>
+    <div class="marquee-item"><span>✦</span> React Router</div>
+    <div class="marquee-item"><span>✦</span> Figma to Code</div>
+    <div class="marquee-item"><span>✦</span> Responsive Design</div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <p class="section-eyebrow reveal">About Me</p>
+  <h2 class="section-title reveal">A little about myself</h2>
+  <div class="about-grid">
+    <div class="about-text reveal-left">
+      <p>I'm <strong>Ayesha Khalid</strong>, a BSIT student from Sahiwal with a passion for building things on the web — and increasingly, with AI.</p>
+      <p>I started with HTML & CSS, moved into JavaScript, then React and Tailwind. Along the way I discovered AI automation — now I build RAG pipelines and intelligent chatbots using n8n.</p>
+      <p>I believe great frontend work is where clean design meets clean code. Every project I build, I aim to make it faster, smarter, and more beautiful than the last.</p>
+      <div class="about-highlight">🎯 Actively seeking a Frontend / AI Automation Internship — 2026</div>
+    </div>
+    <div class="stats-grid reveal-right">
+      <div class="stat-box"><div class="stat-num">4+</div><div class="stat-label">GitHub Projects</div></div>
+      <div class="stat-box"><div class="stat-num">2</div><div class="stat-label">AI Pipelines</div></div>
+      <div class="stat-box"><div class="stat-num">3</div><div class="stat-label">Certifications</div></div>
+      <div class="stat-box"><div class="stat-num">∞</div><div class="stat-label">Drive to Learn</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <p class="section-eyebrow reveal">What I Know</p>
+  <h2 class="section-title reveal">Skills & Technologies</h2>
+  <div class="skills-grid">
+    <div class="skill-card reveal">
+      <div class="skill-icon">⚛️</div>
+      <h3>Frontend Development</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">HTML5</span><span class="skill-tag">CSS3</span>
+        <span class="skill-tag">JavaScript</span><span class="skill-tag">React.js</span>
+        <span class="skill-tag">Tailwind CSS</span><span class="skill-tag">React Router</span>
+        <span class="skill-tag">REST APIs</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">🤖</div>
+      <h3>AI & Automation</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">n8n</span><span class="skill-tag">RAG Pipeline</span>
+        <span class="skill-tag">AI Chatbot</span><span class="skill-tag">Pinecone</span>
+        <span class="skill-tag">Cohere</span><span class="skill-tag">OpenCode</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">🛠️</div>
+      <h3>Tools & Design</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">Figma</span><span class="skill-tag">VS Code</span>
+        <span class="skill-tag">Git</span><span class="skill-tag">GitHub</span>
+        <span class="skill-tag">Netlify</span><span class="skill-tag">MS Office</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <p class="section-eyebrow reveal">My Work</p>
+  <h2 class="section-title reveal">Projects on GitHub</h2>
+  <div class="projects-grid">
+
+    <div class="project-card reveal">
+      <div class="project-card-top">
+        <div class="project-emoji em-purple">💼</div>
+        <div class="project-tags-top"><span class="ptag">React</span><span class="ptag">Tailwind</span><span class="ptag">Router</span></div>
+      </div>
+      <h3>Job Board App</h3>
+      <p>Job listing app with filter by type, bookmark feature, Sign In & Post a Job pages. Built with React, React Router, Tailwind CSS and lucide icons.</p>
+      <div class="project-links">
+        <a href="https://github.com/ayesha-khalid-dev/job-board-app" target="_blank" class="project-link">GitHub →</a>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-card-top">
+        <div class="project-emoji em-yellow">📝</div>
+        <div class="project-tags-top"><span class="ptag">React</span><span class="ptag">Tailwind</span></div>
+      </div>
+      <h3>Notes App</h3>
+      <p>React app with add, edit, and delete notes functionality using useState hooks. Dark theme with gradient cards and hover interactions.</p>
+      <div class="project-links">
+        <a href="https://github.com/ayesha-khalid-dev/React-notes--app" target="_blank" class="project-link">GitHub →</a>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-card-top">
+        <div class="project-emoji em-coral">📰</div>
+        <div class="project-tags-top"><span class="ptag">React</span><span class="ptag">Router</span><span class="ptag">API</span></div>
+      </div>
+      <h3>Blog / Posts App</h3>
+      <p>Full React app with React Router & REST API integration. Create, view & delete posts across multiple pages with proper routing.</p>
+      <div class="project-links">
+        <a href="https://github.com/ayesha-khalid-dev/blog-posts-app" target="_blank" class="project-link">GitHub →</a>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-card-top">
+        <div class="project-emoji em-teal">🌐</div>
+        <div class="project-tags-top"><span class="ptag">React</span><span class="ptag">Tailwind</span><span class="ptag">API</span></div>
+      </div>
+      <h3>SocialHub Dashboard</h3>
+      <p>A social media dashboard built with React and Tailwind CSS, using DummyJSON APIs to display posts, users, and social data dynamically.</p>
+      <div class="project-links">
+        <a href="https://github.com/ayesha-khalid-dev/socialhub-app" target="_blank" class="project-link">GitHub →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- AI SECTION -->
+<section id="ai">
+  <p class="section-eyebrow reveal">AI & Automation</p>
+  <h2 class="section-title reveal">Building with Intelligence</h2>
+  <div class="ai-grid">
+    <div class="ai-card reveal">
+      <div class="ai-card-icon">🧠</div>
+      <h3>RAG Pipeline</h3>
+      <p>Built a complete Retrieval-Augmented Generation pipeline — documents chunked, embedded and stored in Pinecone vector database for intelligent AI retrieval.</p>
+      <div class="ai-tools"><span class="ai-tool">n8n</span><span class="ai-tool">Pinecone</span><span class="ai-tool">Cohere</span><span class="ai-tool">Google Drive</span></div>
+    </div>
+    <div class="ai-card reveal">
+      <div class="ai-card-icon">💬</div>
+      <h3>AI Chatbot</h3>
+      <p>Intelligent chatbot using n8n automation workflows with vector search — answers questions from uploaded documents intelligently.</p>
+      <div class="ai-tools"><span class="ai-tool">n8n</span><span class="ai-tool">RAG</span><span class="ai-tool">Vector Search</span><span class="ai-tool">LLM</span></div>
+    </div>
+    <div class="ai-card reveal">
+      <div class="ai-card-icon">⚡</div>
+      <h3>Workflow Automation</h3>
+      <p>Designed automated n8n workflows — from data ingestion to AI processing — connecting multiple services seamlessly.</p>
+      <div class="ai-tools"><span class="ai-tool">n8n Cloud</span><span class="ai-tool">Webhooks</span><span class="ai-tool">APIs</span></div>
+    </div>
+    <div class="ai-card reveal">
+      <div class="ai-card-icon">🚀</div>
+      <h3>Currently Learning</h3>
+      <p>Actively expanding AI skills — exploring OpenCode and advanced AI agent development to build smarter automation systems.</p>
+      <div class="ai-tools"><span class="ai-tool">OpenCode</span><span class="ai-tool">AI Agents</span><span class="ai-tool">LLM Integration</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="section-eyebrow reveal">Contact</p>
+  <h2 class="section-title reveal">Let's work together</h2>
+  <div class="contact-wrapper">
+    <div class="contact-info reveal-left">
+      <div class="contact-row">
+        <div class="contact-icon-box">📧</div>
+        <div><div class="contact-label">Email</div><div class="contact-val">ayeshakhald8844@gmail.com</div></div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-icon-box">📱</div>
+        <div><div class="contact-label">Phone</div><div class="contact-val">0315-2263706</div></div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-icon-box">📍</div>
+        <div><div class="contact-label">Location</div><div class="contact-val">Sahiwal, Punjab, Pakistan</div></div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-icon-box">💼</div>
+        <div><div class="contact-label">LinkedIn</div><div class="contact-val">linkedin.com/in/ayesha-khalid-dev</div></div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-icon-box">🐙</div>
+        <div><div class="contact-label">GitHub</div><div class="contact-val">github.com/ayesha-khalid-dev</div></div>
+      </div>
+    </div>
+    <div class="contact-card reveal-right">
+      <h3>Ready to build something amazing?</h3>
+      <p>I'm a fast learner, detail-oriented, and genuinely passionate about great web experiences and AI automation. Let's connect!</p>
+      <div class="available-badge"><span class="available-dot"></span> Available for Internship — 2026</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="logo">Ayesha Khalid</div>
+  <span>© 2026 · Frontend Developer & AI Builder · Sahiwal, Pakistan</span>
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => observer.observe(el));
+
+  // Stagger
+  document.querySelectorAll('.projects-grid, .skills-grid, .ai-grid, .stats-grid').forEach(grid => {
+    grid.querySelectorAll('.reveal').forEach((child, i) => { child.style.transitionDelay = `${i * 0.1}s`; });
+  });
+
+  // Mouse-follow tilt for hero orb (pure JS, no external library)
+  const stage = document.querySelector('.orb-stage');
+  if (stage) {
+    document.addEventListener('mousemove', (e) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 2;
+      const y = (e.clientY / window.innerHeight - 0.5) * 2;
+      stage.style.transform = `rotate(${x * 4}deg) translate(${x * 10}px, ${y * 10}px)`;
+    });
+  }
+</script>
+</body>
+</html>
